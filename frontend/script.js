@@ -38,6 +38,11 @@ function persist() {
   localStorage.setItem("kb_cards", JSON.stringify(cards));
   localStorage.setItem("kb_nid", String(nextId));
   localStorage.setItem("kb_tags", JSON.stringify(TAG_DEFS));
+
+  // Sync to Firebase
+  if (typeof syncToFirebase === "function") {
+    syncToFirebase();
+  }
 }
 
 let cols = ls("kb_cols", DEFAULT_COLS);
