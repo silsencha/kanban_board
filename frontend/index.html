@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Board</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Geist+Mono:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">my board</div>
+      <div class="stats" id="stats"></div>
+      <div class="header-right">
+        <button
+          class="theme-btn"
+          id="theme-btn"
+          onclick="toggleTheme()"
+          title="Toggle dark/light mode"
+        >
+          🌙
+        </button>
+
+        <button class="new-col-btn" onclick="openColModal()">
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+          >
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          New column
+        </button>
+      </div>
+    </header>
+
+    <div class="board" id="board"></div>
+
+    <!-- New column modal -->
+    <div class="col-modal-bg" id="col-modal-bg">
+      <div class="col-modal">
+        <h3>New column</h3>
+        <div class="field">
+          <label>Name</label>
+          <input
+            id="col-name-inp"
+            type="text"
+            placeholder="e.g. In review, Blocked…"
+            autocomplete="off"
+          />
+        </div>
+        <div class="field">
+          <label>Color</label>
+          <div class="color-grid" id="color-grid"></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-ghost" onclick="closeColModal()">Cancel</button>
+          <button class="btn-primary" onclick="saveColumn()">
+            Create column
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tag management modal -->
+    <div class="tag-modal-bg" id="tag-modal-bg">
+      <div class="tag-modal">
+        <h3 id="tag-modal-title">New tag</h3>
+        <div class="field">
+          <label>Label</label>
+          <input
+            id="tag-label-inp"
+            type="text"
+            placeholder="e.g. Bug, Feature…"
+            autocomplete="off"
+          />
+        </div>
+        <div class="field">
+          <label>Background color</label>
+          <input id="tag-bg-inp" type="color" />
+        </div>
+        <div class="field">
+          <label>Text color</label>
+          <input id="tag-color-inp" type="color" />
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn-ghost"
+            id="tag-del-btn"
+            onclick="deleteTag()"
+            style="display: none; color: #c0392b"
+          >
+            Delete
+          </button>
+          <div style="flex: 1"></div>
+          <button class="btn-ghost" onclick="closeTagModal()">Cancel</button>
+          <button class="btn-primary" id="tag-save-btn" onclick="saveTag()">
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Card modal -->
+    <div class="modal-bg" id="modal-bg">
+      <div class="modal">
+        <h3 id="modal-title">New card</h3>
+        <div class="field">
+          <label>Title</label>
+          <input
+            id="f-title"
+            type="text"
+            placeholder="What needs doing?"
+            autocomplete="off"
+          />
+        </div>
+        <div class="field">
+          <label>Notes</label>
+          <textarea
+            id="f-notes"
+            rows="2"
+            placeholder="Optional details…"
+          ></textarea>
+        </div>
+        <div class="field">
+          <label>Tag</label>
+          <div class="tag-picker" id="tag-picker"></div>
+        </div>
+        <div class="field">
+          <label>Priority</label>
+          <div class="priority-picker" id="pri-picker">
+            <div class="pri-opt" data-p="low">↓ Low</div>
+            <div class="pri-opt" data-p="med">→ Med</div>
+            <div class="pri-opt" data-p="high">↑ High</div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Due date</label>
+          <div class="cal-wrap">
+            <button
+              type="button"
+              class="cal-trigger"
+              id="cal-trigger"
+              onclick="toggleCal()"
+            >
+              <span id="cal-display" style="color: var(--muted)"
+                >No due date</span
+              >
+              <span class="cal-icon">🗓</span>
+            </button>
+            <div class="cal-dropdown" id="cal-dropdown">
+              <div class="cal-nav">
+                <button class="cal-nav-btn" onclick="calShift(-1)">
+                  &#8249;
+                </button>
+                <span class="cal-month-label" id="cal-month-label"></span>
+                <button class="cal-nav-btn" onclick="calShift(1)">
+                  &#8250;
+                </button>
+              </div>
+              <div class="cal-grid" id="cal-grid"></div>
+              <div class="cal-footer">
+                <button class="cal-btn-today" onclick="calPickToday()">
+                  Today
+                </button>
+                <button class="cal-btn-clear" onclick="calClear()">
+                  Clear
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-ghost" onclick="closeModal()">Cancel</button>
+          <button class="btn-primary" id="modal-save-btn" onclick="saveCard()">
+            Add card
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
